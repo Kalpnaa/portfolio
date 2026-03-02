@@ -1,0 +1,28 @@
+<section id="certificates" class="reveal">
+    <h1>Certifications</h1>
+    <p class="section-subtitle">A collection of professional certifications and academic achievements in machine learning and engineering.</p>
+
+    <div class="certificates-wrapper">
+        {% for cert in certificates %}
+        <div class="cert-container">
+            <div class="cert-image-wrapper">
+                <img src="{{ url_for('static', filename='photos/' + cert.image) }}" 
+                     alt="{{ cert.title }}" 
+                     onclick="openModal(this.src)" 
+                     style="cursor: pointer;">
+            </div>
+            
+            <div class="cert-content">
+                <h3>{{ cert.title }}</h3>
+                {% if cert.issuer %}
+                <p><strong>{{ cert.issuer }}</strong></p>
+                {% endif %}
+                
+                {% if cert.description %}
+                <p class="cert-desc">{{ cert.description }}</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>

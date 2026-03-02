@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Edu+NSW+ACT+Cursive:wght@400..700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+</head>
+
+<body>
+    {% include "header.html" %}
+    
+    <section class="hero-section">
+        <div class="hero-content">
+            <span class="hero-label">— Portfolio</span>
+            
+            <h1 class="hero-title">Kalpana<br>Sharma</h1>
+            
+            <p class="hero-bio">
+                Welcome! I am a third-year Computer Engineering student deeply passionate about data-driven innovation. I am currently in my learning phase, exploring complex datasets, and actively building intelligent machine learning models.
+            </p>
+            
+            <div class="role-bounding-box">
+                <span class="corner top-left"></span>
+                <span class="corner top-right"></span>
+                <span class="corner bottom-left"></span>
+                <span class="corner bottom-right"></span>
+                <h2>Aspiring ML Engineer</h2>
+            </div>
+        </div>
+        
+        <div class="hero-visual">
+            <div class="image-wrapper">
+                <img src="{{ url_for('static', filename='photos/profile.jpg') }}" alt="Profile Photo" class="main-img">
+                
+                <div class="floating-badge">
+                    <div class="badge-text">Python &<br>Models</div>
+                </div>
+                
+                <div class="floating-card">
+                    <p>"Constantly learning, experimenting, and building scalable system architectures."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="about" class="reveal" style="margin-top: 40px;">
+        <div class="about-box">
+            <p>
+                Hi! I’m a third-year student with a love for turning simple ideas into meaningful projects. I enjoy
+                blending creativity with technology, building things that are both functional and beautiful.
+                From designing clean and cozy user interfaces to exploring the world of machine learning, I’m always
+                curious to learn, experiment, and grow with every project I create.
+                This portfolio is a small reflection of my journey as a student developer — full of learning,
+                creativity, and passion. Take a look around and see what I’ve been building.
+            </p>
+            
+            <div style="margin-top: 35px;">
+                <a href="{{ url_for('static', filename='resume.pdf') }}" target="_blank" class="btn-resume">
+                    Download Resume
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <div class="reveal">{% include "education.html" %}</div>
+    <div class="reveal">{% include "skills.html" %}</div>
+    <div class="reveal">{% include "projects.html" %}</div>
+    <div class="reveal">{% include "Certificates.html" %}</div>
+    <div class="reveal">{% include "roles.html" %}</div>
+    <div class="reveal">{% include "contact.html" %}</div>
+
+    <div id="imageModal" class="modal">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="expandedImg">
+    </div>
+
+    <footer style="text-align: center; padding: 25px; background-color: var(--maroon-dark); color: var(--cream-alt); font-size: 0.95rem; border-top: 1px solid rgba(255,255,255,0.05);">
+        <p>© 2026 Kalpana Sharma. Built with passion & Python.</p>
+    </footer>
+
+    <script>
+        // --- Certificate Modal Logic ---
+        function openModal(src) {
+            document.getElementById("imageModal").style.display = "block";
+            document.getElementById("expandedImg").src = src;
+        }
+
+        function closeModal() {
+            document.getElementById("imageModal").style.display = "none";
+        }
+
+        // Close modal if user clicks outside the image
+        window.onclick = function(event) {
+            var modal = document.getElementById("imageModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // --- Scroll Reveal Logic ---
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100; // Triggers when element is 100px into the viewport
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Trigger once on page load
+    </script>
+</body>
+
+</html>
