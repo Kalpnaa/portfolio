@@ -1,15 +1,20 @@
 from flask import Flask, render_template
 from db import db, Projects, Certificate, Experience
-
+import os
 
 app = Flask(__name__)
 
-# DATABASE CONFIG (missing in your code)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+# Use old DB locally, Render path on server
+if os.environ.get("RENDER"):
+    db_path = "/opt/render/project/src/site.db"
+else:
+    db_path = "site.db"   # your old DB with data
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{db_path}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# connect db with app
 db.init_app(app)
+
 @app.route('/')
 def main():
     projects = Projects.query.all()
@@ -24,6 +29,4 @@ def main():
     )
 
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()   # THIS creates table
-    app.run(debug=True)
+    app.run()
