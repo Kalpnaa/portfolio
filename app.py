@@ -5,10 +5,8 @@ import os
 app = Flask(__name__)
 
 # Use old DB locally, Render path on server
-if os.environ.get("RENDER"):
-    db_path = "/opt/render/project/src/site.db"
-else:
-    db_path = "site.db"   # your old DB with data
+
+db_path = "site.db"   # your old DB with data
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{db_path}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
